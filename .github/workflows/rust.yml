@@ -38,12 +38,12 @@ jobs:
     - name: Build
       run: cargo fmt --all -- --check
     - uses: actions/upload-artifact@v1
-      if: runner.os == 'Linux'
+      if: runner.os == 'macOS'
       with:
         name: pio-linux
         path: target/x86_64-apple-darwin/release/pio
     - uses: actions/upload-artifact@v1
-      if: runner.os == 'macOS'
+      if: runner.os == 'Linux'
       with:
         name: pio-mac
         path: target/x86_64-unknown-linux-musl/release/pio
