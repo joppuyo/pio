@@ -1,0 +1,49 @@
+name: Rust
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: 
+    - ubuntu-latest
+    - macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build
+      run: apt install musl-tools -y
+      if: runner.os == 'Linux'
+    - name: Build
+      run: rustup target add x86_64-unknown-linux-musl
+      if: runner.os == 'Linux'
+    - name: Build
+      run: rustup target add x86_64-apple-darwin
+      if: runner.os == 'macOS'
+    - name: Build
+      run: rustup component add clippy rustfmt
+    - name: Build
+      run: cargo build --release --target=x86_64-unknown-linux-musl
+      if: runner.os == 'Linux'
+    - name: Build
+      run: cargo build --release --target=x86_64-apple-darwin
+      if: runner.os == 'macOS'
+    - name: Build
+      run: cargo clippy
+    - name: Build
+      run: cargo fmt --all -- --check
+    - uses: actions/upload-artifact@v1
+      if: runner.os == 'Linux'
+      with:
+        name: pio-linux
+        path: target/x86_64-apple-darwin/release/pio
+    - uses: actions/upload-artifact@v1
+      if: runner.os == 'macOS'
+      with:
+        name: pio-mac
+        path: target/x86_64-unknown-linux-musl/release/pio
+      
