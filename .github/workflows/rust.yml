@@ -39,7 +39,7 @@ jobs:
       with:
         name: pio-x86_64-apple-darwin
         path: target/x86_64-apple-darwin/release/pio
-    - upload: Upload (Linux)
+    - name: Upload (Linux)
       uses: actions/upload-artifact@v1
       if: runner.os == 'Linux'
       with:
