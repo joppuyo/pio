@@ -3,7 +3,7 @@ SPDX-FileCopyrightText: 2019 Tuomas Siipola
 SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
-test
+test 2
 
 # Perceptual Image Optimizer
 
